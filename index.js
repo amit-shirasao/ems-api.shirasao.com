@@ -18,45 +18,66 @@ const employeeModel = mongoose.model("Employee", employeeSchema);
 //#region API Calls
 
 app.post("/", (req, res) => {
-  res.send({
-    message: "You want to create a new employee.",
-    data: req.body,
-  });
+  employeeModel(req.body)
+    .save()
+    .then((newEmployeeFromDB) => {
+      res.send({
+        message: "Created this employee.",
+        data: newEmployeeFromDB,
+      });
+    });
 });
 
 app.get("/", (req, res) => {
-  res.send({
-    message: "You want to fetch all employees.",
-    data: [{}, {}, {}],
+  employeeModel.find().then((employees) => {
+    res.send({
+      message: "These are all our employees.",
+      data: employees,
+    });
   });
 });
 
 app.get("/:id", (req, res) => {
-  res.send({
-    message: "You want to fetch an employee with id " + req.params.id,
-    data: {},
+  employeeModel.findById(req.params.id).then((employee) => {
+    res.send({
+      message: "Employee with id " + req.params.id + " is given in 'data' field.",
+      data: employee,
+    });
   });
 });
 
 app.put("/:id", (req, res) => {
-  res.send({
-    message: "You want to change employee with id " + req.params.id + " fully.",
-    data: req.body,
-  });
+  employeeModel
+    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((employee) => {
+      res.send({
+        message:
+          "Employee with id " + req.params.id + " was modified fully.",
+        data: employee,
+      });
+    });
 });
 
 app.patch("/:id", (req, res) => {
-  res.send({
-    message:
-      "You want to change employee with id " + req.params.id + " partially.",
-    data: req.body,
-  });
+  employeeModel
+    .findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((employee) => {
+      res.send({
+        message:
+          "Employee with id " +
+          req.params.id +
+          " was modified partially.",
+        data: employee,
+      });
+    });
 });
 
 app.delete("/:id", (req, res) => {
-  res.send({
-    message: "You want to delete employee with id " + req.params.id + ".",
-    data: {},
+  employeeModel.findByIdAndDelete(req.params.id).then((deletedEmployee) => {
+    res.send({
+      message: "Employee with id " + req.params.id + " was deleted.",
+      data: deletedEmployee,
+    });
   });
 });
 
