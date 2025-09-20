@@ -1,43 +1,63 @@
-const http = require("http");
+const express = require("express");
+const app = express();
 
-let server = http.createServer((req, res) => {
-  let method = req.method;
-  let id = req.url.split("/")[1 | null];
-  let body = [];
-  req
-    .on("data", (chunk) => {
-      body.push(chunk);
-    })
-    .on("end", () => {
-      body = Buffer.concat(body).toString();
-      switch (method) {
-        case "GET":
-          if (id) {
-            res.end("You want an employee with id: " + id + ".");
-          } else {
-            res.end("You want to get all the employees.");
-          }
-          break;
-        case "POST":
-          res.end("You want to create a new employee." + body);
-          break;
-        case "PUT":
-          res.end("You want to update an employee fully.");
-          break;
-        case "PATCH":
-          res.end("You want to update an employee partially.");
-          break;
-        case "DELETE":
-          res.end("You want to delete an employee.");
-          break;
+// Middleware
+app.use(express.json());
 
-        default:
-          res.end("I don't serve such request.");
-          break;
-      }
-    });
+//#region API Calls
+
+app.post("/", (req, res) => {
+  res.send({
+    message: "You want to create a new employee.",
+    data: req.body,
+  });
 });
 
-server.listen(3000, () => {
-  console.log("Server is listening for HTTP requests on port 3000");
+app.get("/", (req, res) => {
+  res.send({
+    message: "You want to fetch all employees.",
+    data: [{}, {}, {}],
+  });
+});
+
+app.get("/:identification/:reqparam1/:reqparam2", (req, res) => {
+  res.send({
+    message:
+      "You want to fetch an employee with id " + req.params.identification,
+    data: {
+      "value of first request param": req.params.reqparam1,
+      "value of second request param": req.params.reqparam2,
+      "value of first query param": req.query.qparam1,
+      "value of second query param": req.query.qparam2,
+    },
+  });
+});
+
+app.put("/:id", (req, res) => {
+  res.send({
+    message: "You want to change employee with id " + req.params.id + " fully.",
+    data: req.body,
+  });
+});
+
+app.patch("/:id", (req, res) => {
+  res.send({
+    message: "You want to change employee with id " + req.params.id + " partially.",
+    data: req.body,
+  });
+});
+
+app.delete('/:id', (req, res)=>{
+    res.send({
+    message: "You want to delete employee with id " + req.params.id + ".",
+    data: {},
+  });
+})
+
+//#endregion API Calls
+
+app.listen(3000, () => {
+  console.log(
+    "The ExpressJS server is listening to HTTP requests on port 3000."
+  );
 });
