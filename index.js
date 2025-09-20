@@ -20,16 +20,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/:identification/:reqparam1/:reqparam2", (req, res) => {
+app.get("/:id", (req, res) => {
   res.send({
-    message:
-      "You want to fetch an employee with id " + req.params.identification,
-    data: {
-      "value of first request param": req.params.reqparam1,
-      "value of second request param": req.params.reqparam2,
-      "value of first query param": req.query.qparam1,
-      "value of second query param": req.query.qparam2,
-    },
+    message: "You want to fetch an employee with id " + req.params.id,
+    data: {},
   });
 });
 
@@ -42,17 +36,18 @@ app.put("/:id", (req, res) => {
 
 app.patch("/:id", (req, res) => {
   res.send({
-    message: "You want to change employee with id " + req.params.id + " partially.",
+    message:
+      "You want to change employee with id " + req.params.id + " partially.",
     data: req.body,
   });
 });
 
-app.delete('/:id', (req, res)=>{
-    res.send({
+app.delete("/:id", (req, res) => {
+  res.send({
     message: "You want to delete employee with id " + req.params.id + ".",
     data: {},
   });
-})
+});
 
 //#endregion API Calls
 
