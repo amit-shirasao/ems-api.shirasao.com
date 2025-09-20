@@ -1,0 +1,17 @@
+{
+  "name": "ems-api.shirasao.com",
+  "version": "1.0.0",
+  "description": "It is the service for my EMS (Employee Management System).",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "EMS",
+    "Service",
+    "EMS",
+    "Server"
+  ],
+  "author": "Amit Shirasao",
+  "license": "ISC"
+}
