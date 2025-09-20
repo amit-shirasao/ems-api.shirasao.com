@@ -7,6 +7,14 @@ const csEmployeeCluster =
 // Middleware
 app.use(express.json());
 
+// Schema and Model of 'Employee' cluster of MongoDB.
+const employeeSchema = mongoose.Schema({
+  name: String,
+  age: Number,
+  isGraduate: Boolean,
+});
+const employeeModel = mongoose.model("Employee", employeeSchema);
+
 //#region API Calls
 
 app.post("/", (req, res) => {
