@@ -1,5 +1,8 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const csEmployeeCluster =
+  "mongodb+srv://amit-shirasao:MongoDBPassword@employee.brpewdm.mongodb.net/";
 
 // Middleware
 app.use(express.json());
@@ -51,8 +54,11 @@ app.delete("/:id", (req, res) => {
 
 //#endregion API Calls
 
-app.listen(3000, () => {
-  console.log(
-    "The ExpressJS server is listening to HTTP requests on port 3000."
-  );
+mongoose.connect(csEmployeeCluster).then(() => {
+  console.log("MongoDB's cluster 'Employee' got connected.");
+  app.listen(3000, () => {
+    console.log(
+      "The ExpressJS server is listening to HTTP requests on port 3000."
+    );
+  });
 });
