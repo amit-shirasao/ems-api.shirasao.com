@@ -1,4 +1,4 @@
-const cors = require("cors"); 
+const cors = require("cors");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
@@ -60,10 +60,13 @@ app.get("/:id", (req, res) => {
 app.get("/:id/:name", (req, res) => {
   let id = req.params.id;
   let name = req.params.name;
-  let { age, grad } = req.query;
+  let { age, isGraduate } = req.query;
 
   let filter = {
+    id: id,
     name: name,
+    age: age,
+    isGraduate: isGraduate,
   };
 
   employeeModel.find(filter).then((employeesSatisfyingFilterCriteria) => {
