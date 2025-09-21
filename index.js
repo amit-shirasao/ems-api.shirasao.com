@@ -27,10 +27,10 @@ const employeeModel = mongoose.model("Employee", employeeSchema);
 // Create       POST  (pass full object)
 app.post("/", (req, res) => {
   let newEmp = employeeModel(req.body);
-  newEmp.save().then((allEmployees) => {
+  newEmp.save().then((newEmployeeCreatedInDB) => {
     res.send({
       message: "You requested to create an employee.",
-      data: newEmp,
+      data: newEmployeeCreatedInDB,
     });
   });
 });
@@ -66,10 +66,10 @@ app.get("/:id/:name", (req, res) => {
     name: name,
   };
 
-  employeeModel.find(filter).then((allEmployees) => {
+  employeeModel.find(filter).then((employeesSatisfyingFilterCriteria) => {
     res.send({
       message: "Fetched employees.",
-      data: allEmployees,
+      data: employeesSatisfyingFilterCriteria,
     });
   });
 });
