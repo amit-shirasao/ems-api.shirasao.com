@@ -56,18 +56,22 @@ app.get("/:id", (req, res) => {
   });
 });
 
-// Read by filter     GET     (pass an id, request params and query params)
 app.get("/:id/:name", (req, res) => {
-  let id = req.params.id;
-  let name = req.params.name;
+  let { id, name } = req.params;
   let { age, isGraduate } = req.query;
 
   let filter = {
     id: id,
     name: name,
-    age: age,
-    isGraduate: isGraduate,
   };
+
+  if (age) {
+    filter.age = parseInt(age);
+  }
+
+  if (isGraduate) {
+    filter.isGraduate = isGraduate === 'true';
+  }
 
   employeeModel.find(filter).then((employeesSatisfyingFilterCriteria) => {
     res.send({
