@@ -1,0 +1,21 @@
+{
+  "name": "ems-api.shirasao.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run-locally": "nodemon index.js",
+    "build": "pm2 restart index.js || pm2 start index.js --name 'ems-api.shirasao.com'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.1",
+    "pm2": "^6.0.11"
+  }
+}
