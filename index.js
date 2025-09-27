@@ -4,11 +4,21 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
-const mongoDBPassword = "MongoDBPassword";
-const mongoDBConnectionString =
-  "mongodb+srv://amit-shirasao:" +
-  mongoDBPassword +
-  "@employee.brpewdm.mongodb.net/";
+// 1. Determine environment (default to 'development' if not set via NODE_ENV)
+const env = process.env.NODE_ENV || "development";
+
+// 2. Load the environment-specific file first (e.g., .env.development).
+//    These values take PRIORITY.
+require("dotenv").config({
+  path: `.env.${env}`,
+});
+
+// 3. Load the generic .env file.
+//    dotenv will only set variables that were NOT already set in step 2.
+require("dotenv").config();
+
+// TO BE DELETED
+console.log(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING);
 
 // Middleware.
 app.use(express.json());
@@ -125,12 +135,14 @@ app.delete("/:id", (req, res) => {
 //#endregion API Calls
 
 // Mongoose Code:
-mongoose.connect(mongoDBConnectionString).then(() => {
-  console.log("MongoDB Cluster called 'Employee' is connected.");
-  app.listen(process.env.PORT, () => {
-    console.log(
-      // "Express.js sever is listening on https://ems-api.shirasao.com/."
-      "Express.js server is listening on localhost:" + process.env.PORT
-    );
+mongoose
+  .connect(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING)
+  .then(() => {
+    console.log("MongoDB Cluster called 'Employee' is connected.");
+    app.listen(process.env.PORT, () => {
+      console.log(
+        // "Express.js sever is listening on https://ems-api.shirasao.com/."
+        "Express.js server is listening on localhost:" + process.env.PORT
+      );
+    });
   });
-});

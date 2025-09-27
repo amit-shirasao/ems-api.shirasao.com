@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run-locally": "nodemon index.js",
-    "build": "pm2 restart index.js || pm2 start index.js --name 'ems-api.shirasao.com'"
+    "run-locally": "NODE_ENV=development nodemon index.js",
+    "build": "NODE_ENV=production pm2 restart index.js || NODE_ENV=production pm2 start index.js --name 'ems-api.shirasao.com'"
   },
   "author": "",
   "license": "ISC",
