@@ -2,6 +2,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
 const mongoDBPassword = "MongoDBPassword";
 const mongoDBConnectionString =
@@ -70,7 +71,7 @@ app.get("/:id/:name", (req, res) => {
   }
 
   if (isGraduate) {
-    filter.isGraduate = isGraduate === 'true';
+    filter.isGraduate = isGraduate === "true";
   }
 
   employeeModel.find(filter).then((employeesSatisfyingFilterCriteria) => {
@@ -126,9 +127,10 @@ app.delete("/:id", (req, res) => {
 // Mongoose Code:
 mongoose.connect(mongoDBConnectionString).then(() => {
   console.log("MongoDB Cluster called 'Employee' is connected.");
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log(
-      "Express.js sever is listening on https://ems-api.shirasao.com/."
+      // "Express.js sever is listening on https://ems-api.shirasao.com/."
+      "Express.js server is listening on localhost:" + process.env.PORT
     );
   });
 });
