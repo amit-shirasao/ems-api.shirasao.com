@@ -10,6 +10,8 @@ require("dotenv").config({
   path: `.env.${env}`,
 });
 
+require("dotenv")
+
 // Middleware.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
