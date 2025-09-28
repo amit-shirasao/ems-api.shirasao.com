@@ -4,20 +4,15 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
-// 1. Determine environment (default to 'development' if not set via NODE_ENV)
 const env = process.env.NODE_ENV || "development";
 
-// 2. Load the environment-specific file first (e.g., .env.development).
-//    These values take PRIORITY.
+require("dotenv").config();
+
 require("dotenv").config({
   path: `.env.${env}`,
 });
 
-// 3. Load the generic .env file.
-//    dotenv will only set variables that were NOT already set in step 2.
-require("dotenv").config();
-
-// TO BE DELETED
+// TO BE DELETED`
 console.log(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING);
 
 // Middleware.
