@@ -10,7 +10,7 @@ require("dotenv").config({
   path: `.env.${env}`,
 });
 
-require("dotenv")
+require("dotenv");
 
 // Middleware.
 app.use(express.json());
@@ -132,9 +132,21 @@ mongoose
   .then(() => {
     console.log("MongoDB Cluster called 'Employee' is connected.");
     app.listen(process.env.PORT, () => {
-      console.log(
-        // "Express.js sever is listening on https://ems-api.shirasao.com/."
-        "Express.js server is listening on localhost:" + process.env.PORT
-      );
+      switch (process.env) {
+        case "development":
+          console.log(
+            "Express.js server is listening on localhost:" + process.env.PORT
+          );
+          break;
+        case "production":
+          console.log(
+            "Express.js sever is listening on https://ems-api.shirasao.com/."
+          );
+          break;
+
+        default:
+          console.log("Environment is unknown.");
+          break;
+      }
     });
   });
