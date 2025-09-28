@@ -128,10 +128,10 @@ app.delete("/:id", (req, res) => {
 
 // Mongoose Code:
 mongoose
-  .connect(
-    "mongodb+srv://amit-shirasao:3nq4BIOeHGcN9s19@employee.brpewdm.mongodb.net"
-  )
-  // .connect(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING)
+  // .connect(
+  //   "mongodb+srv://amit-shirasao:3nq4BIOeHGcN9s19@employee.brpewdm.mongodb.net"
+  // )
+  .connect(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING)
   .then(() => {
     console.log("MongoDB Cluster called 'Employee' is connected.");
     app.listen(process.env.PORT, () => {
