@@ -6,14 +6,9 @@ require("dotenv").config();
 
 const env = process.env.NODE_ENV || "development";
 
-require("dotenv").config();
-
 require("dotenv").config({
   path: `.env.${env}`,
 });
-
-// TO BE DELETED`
-console.log(process.env.MONGODB_EMPLOYEE_CLUSTER_CONNECTION_STRING);
 
 // Middleware.
 app.use(express.json());
