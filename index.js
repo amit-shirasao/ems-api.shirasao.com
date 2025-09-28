@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "production";
 
 require("dotenv").config({
   path: `.env.${env}`,
