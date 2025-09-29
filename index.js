@@ -2,7 +2,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-require("dotenv").config();
+require("dotenv");
 
 const env = process.env.NODE_ENV || "production";
 
@@ -10,7 +10,7 @@ require("dotenv").config({
   path: `.env.${env}`,
 });
 
-require("dotenv");
+require("dotenv").config();
 
 // Middleware.
 app.use(express.json());
